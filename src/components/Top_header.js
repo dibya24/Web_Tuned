@@ -1,38 +1,34 @@
 // components/TopBar.js
-import { Facebook, Instagram, Music2, Phone, Mail, Clock } from "lucide-react";
+import { Facebook, Instagram, Phone, Mail, Clock } from "lucide-react";
 
 export default function TopBar() {
   return (
-    <div className="bg-[#7b5e5e] text-white text-sm py-1">
-      <div className="max-w-[1440px] mx-auto flex justify-between items-center px-4 sm:px-6 lg:px-16 py-2">
-        
+    <div className="bg-[#6A9FCB] text-white text-sm py-1">
+      <div className="max-w-[1440px] mx-auto flex flex-col sm:flex-row justify-between items-center px-4 sm:px-6 lg:px-16 py-2 space-y-2 sm:space-y-0">
+
         {/* Social Icons */}
         <div className="flex space-x-4">
-          <a href="#" className="hover:text-gray-300">
+          <a href="#" className="hover:text-gray-300 transition-colors duration-200">
             <Facebook size={18} />
           </a>
-          <a href="#" className="hover:text-gray-300">
+          <a href="#" className="hover:text-gray-300 transition-colors duration-200">
             <Instagram size={18} />
-          </a>
-          <a href="#" className="hover:text-gray-300">
-            {/* Using Music2 as TikTok alternative since Lucide doesn’t have TikTok */}
-            <Music2 size={18} />
           </a>
         </div>
 
         {/* Contact Info */}
-        <div className="flex space-x-6 items-center">
+        <div className="flex flex-col sm:flex-row sm:space-x-6 space-y-1 sm:space-y-0 items-center text-center sm:text-left">
           <div className="flex items-center space-x-2">
             <Phone size={16} />
-            <span>9876543210</span>
+            <span>0423646427</span>
           </div>
           <div className="flex items-center space-x-2">
             <Mail size={16} />
-            <span>majestic@gmail.com</span>
+            <span>4evakleen@gmail.com</span>
           </div>
           <div className="flex items-center space-x-2">
             <Clock size={16} />
-            <span>Mon-Fri (10:00A.M - 5:00P.M)</span>
+            <span>Perth W.A</span>
           </div>
         </div>
       </div>

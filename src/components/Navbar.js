@@ -23,46 +23,49 @@ const Navbar = () => {
     { name: "Contact", path: "/contact" },
   ];
 
-  const logoSrc = "/images/logo/Majestic-Logo.png";
-
   return (
     <nav
-      className={` w-full z-50 transition-all ${
+      className={` w-full z-50 transition-all duration-300 ${
         scrolled ? "bg-white shadow-md" : "bg-transparent"
       }`}
     >
-      <div className="max-w-[1440px] w-full mx-auto px-4 sm:px-6 lg:px-16">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-16">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center">
             <Image
               src={LOGO}
-              alt="MyLogo"
-              width={50}
-              height={48}
+              alt="Logo"
+              width={180}
+              height={40}
               className="object-contain"
               draggable={false}
             />
           </Link>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex space-x-8">
+          <div className="hidden md:flex space-x-8 items-center">
             {menuItems.map((item) => (
               <Link
                 key={item.name}
                 href={item.path}
                 className={`relative text-base sm:text-lg transition-colors ${
                   pathname === item.path
-                    ? "text-red-500 font-semibold"
-                    : "text-gray-700 hover:text-red-500"
+                    ? "text-[#E53A7F] font-semibold"
+                    : "text-gray-700 hover:text-[#E53A7F]"
                 }`}
               >
                 {item.name}
                 {pathname === item.path && (
-                  <span className="absolute left-0 -bottom-1 w-full h-0.5 bg-red-500" />
+                  <span className="absolute left-0 -bottom-1 w-full h-0.5 bg-[#E53A7F]" />
                 )}
               </Link>
             ))}
+
+            {/* CTA Button */}
+            <button className="ml-4 px-6 py-2 rounded-xl bg-[#E94290] hover:bg-[#C6397F] text-white font-semibold shadow-lg transition duration-300">
+              Book Now
+            </button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -114,8 +117,8 @@ const Navbar = () => {
         <div className="flex justify-between items-center p-4 border-b">
           <div className="flex items-center">
             <Image
-              src={logoSrc}
-              alt="MyLogo"
+              src={LOGO}
+              alt="Logo"
               width={36}
               height={36}
               className="object-contain"
@@ -146,7 +149,7 @@ const Navbar = () => {
               href={item.path}
               className={`px-3 py-2 rounded text-base sm:text-lg transition-colors ${
                 pathname === item.path
-                  ? "text-red-500 font-semibold bg-gray-100"
+                  ? "text-[#E53A7F] font-semibold bg-gray-100"
                   : "text-gray-700 hover:bg-gray-100"
               }`}
               onClick={() => setIsOpen(false)}
@@ -154,6 +157,11 @@ const Navbar = () => {
               {item.name}
             </Link>
           ))}
+
+          {/* Mobile CTA */}
+          <button className="mt-4 px-6 py-2 rounded-xl bg-[#E94290] hover:bg-[#C6397F] text-white font-semibold shadow-lg transition duration-300">
+            Book Now
+          </button>
         </nav>
       </div>
     </nav>
