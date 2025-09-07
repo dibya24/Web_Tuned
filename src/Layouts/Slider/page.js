@@ -7,13 +7,13 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-import HeroOne from "/public/static_images/Hero_One.jpg"; // Correct static import
+import HeroOne from "/public/static_images/Hero_One.jpg"; 
 
 const HomeSlider = () => {
   const slides = [
     {
       id: 1,
-      image: HeroOne, // Use imported image object
+      image: HeroOne, 
       title: "CLEANING SPECIALIST",
       subtitle: "End of lease cleans, Window, frames and track cleaning",
       buttonText: "Shop Now",
@@ -21,7 +21,7 @@ const HomeSlider = () => {
     },
     {
       id: 2,
-      image: "https://picsum.photos/id/1024/1200/500", // Remote URL is fine
+      image: "https://picsum.photos/id/1024/1200/500", 
       title: "Affordable & Reliable",
       subtitle: "Making everyday living easier",
       buttonText: "Learn More",
