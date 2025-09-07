@@ -90,7 +90,7 @@ const Navbar = () => {
               <button
                 key={item.name}
                 onClick={() => handleScrollTo(item.path)}
-                className={`relative text-base sm:text-lg transition-colors ${
+                className={`relative text-base sm:text-lg transition-colors cursor-pointer ${
                   activeSection === item.path
                     ? "text-[#E53A7F] font-semibold"
                     : "text-gray-700 hover:text-[#E53A7F]"

@@ -56,15 +56,13 @@ const Testimonials = () => {
     },
   ];
 
-  const renderStars = (rating) => {
-    return [...Array(5)].map((_, i) => (
+  const renderStars = (rating) =>
+    [...Array(5)].map((_, i) => (
       <span key={i} className={i < rating ? "text-yellow-400" : "text-gray-300"}>
         ★
       </span>
     ));
-  };
 
-  // Motion variants for fade-in + slide-up
   const cardVariants = {
     hidden: { opacity: 0, y: 30 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
@@ -82,7 +80,8 @@ const Testimonials = () => {
             What Our <span className="text-[#6A9FCB]">Customers Say</span>
           </h2>
           <p className="text-gray-600 mt-4 mx-auto max-w-xl text-base sm:text-lg">
-            Hear from our satisfied clients about the quality and reliability of our services.
+            Hear from our satisfied clients about the quality and reliability of
+            our services.
           </p>
         </div>
 
@@ -95,12 +94,6 @@ const Testimonials = () => {
             delay: 4000,
             disableOnInteraction: false,
           }}
-          // pagination={{
-          //   clickable: true,
-          //   renderBullet: (index, className) => {
-          //     return `<span class="${className} bg-[#6A9FCB] w-4 h-4 rounded-full mx-1 inline-block"></span>`;
-          //   },
-          // }}
           breakpoints={{
             320: { slidesPerView: 1 },
             640: { slidesPerView: 1 },
@@ -108,6 +101,7 @@ const Testimonials = () => {
             1024: { slidesPerView: 3 },
           }}
           modules={[Autoplay, Pagination]}
+          className="testimonial-swiper"
         >
           {testimonials.map((t) => (
             <SwiperSlide key={t.id}>
@@ -116,9 +110,9 @@ const Testimonials = () => {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
-                className="p-8 bg-white rounded-3xl border border-gray-200 h-full flex flex-col justify-between transition-transform duration-300 hover:scale-100"
+                className="p-8 bg-white rounded-3xl border border-gray-200 h-full flex flex-col justify-between transition-transform duration-300"
               >
-                {/* Profile Image & Name */}
+                {/* Profile */}
                 <div className="flex items-center mb-4">
                   <img
                     src={t.image}
@@ -133,16 +127,34 @@ const Testimonials = () => {
                   </div>
                 </div>
 
-                {/* Star Ratings */}
+                {/* Stars */}
                 <div className="mb-4 text-lg">{renderStars(t.rating)}</div>
 
-                {/* Feedback Text */}
-                <p className="text-sm sm:text-base text-[#5C6F7A] flex-grow">{t.feedback}</p>
+                {/* Feedback */}
+                <p className="text-sm sm:text-base text-[#5C6F7A] flex-grow">
+                  {t.feedback}
+                </p>
               </motion.div>
             </SwiperSlide>
           ))}
         </Swiper>
       </div>
+
+      {/* Inline styles */}
+      <style jsx global>{`
+        .testimonial-swiper .swiper-slide-active > div {
+          border: 2px solid #6a9fcb;
+          transform: scale(1.05);
+          transition: all 0.3s ease-in-out;
+        }
+        .testimonial-swiper .swiper-slide {
+          opacity: 0.7;
+          transition: opacity 0.3s ease-in-out;
+        }
+        .testimonial-swiper .swiper-slide-active {
+          opacity: 1;
+        }
+      `}</style>
     </section>
   );
 };
