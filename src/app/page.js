@@ -14,32 +14,38 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen bg-white">
       {/* Header */}
-      <div className="hidden md:block">
+      <div>
         <Top_Header />
       </div>
 
-      {/* Navigation Bar */} 
-      <NavBar />
+      {/* Navigation Bar - Sticky */}
+      <div className="sticky top-0 z-50">
+        <NavBar />
+      </div>
 
-      {/* Main Content placeholder */}
+      {/* Main Content */}
       <main className="flex-grow">
-        {/* Slider */}
-        <Slider />
+        <div id="top">
+          <Slider />
+        </div>
 
-        {/* About Us */}
-        <About_Us />
+        <div id="about">
+          <About_Us />
+        </div>
 
-        <Services />
+        <div id="services">
+          <Services />
+        </div>
 
-        {/* Testinomials */}
         <Testimonials />
-
         <Why_Choose_Us />
-
       </main>
 
-      {/* Sticky Footer */}
-      <Footer />
+      {/* Footer */}
+      <div id="contact">
+        <Footer />
+      </div>
     </div>
   );
 }
+

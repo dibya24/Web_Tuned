@@ -9,10 +9,14 @@ export default function TopBar() {
         {/* Social Icons */}
         <div className="flex space-x-4">
           <a href="#" className="hover:text-gray-300 transition-colors duration-200">
-            <Facebook size={18} />
+            <div className="w-8 h-8 bg-white rounded-full flex justify-center items-center">
+              <Facebook size={18} className="text-[#6A9FCB]" />
+            </div>
           </a>
           <a href="#" className="hover:text-gray-300 transition-colors duration-200">
-            <Instagram size={18} />
+            <div className="w-8 h-8 bg-white rounded-full flex justify-center items-center">
+              <Instagram size={18} className="text-[#6A9FCB]" />
+            </div>
           </a>
         </div>
 

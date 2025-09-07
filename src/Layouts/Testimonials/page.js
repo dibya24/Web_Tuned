@@ -1,8 +1,10 @@
 "use client";
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay } from "swiper/modules";
+import { Autoplay, Pagination } from "swiper/modules";
+import { motion } from "framer-motion";
 import "swiper/css";
+import "swiper/css/pagination";
 
 const Testimonials = () => {
   const testimonials = [
@@ -42,6 +44,16 @@ const Testimonials = () => {
       rating: 5,
       image: "https://randomuser.me/api/portraits/women/22.jpg",
     },
+
+    {
+      id: 5,
+      name: "Sneha Patel",
+      designation: "HR Manager, TalentWorks",
+      feedback:
+        "Excellent durability and design. Would recommend to family and friends!",
+      rating: 5,
+      image: "https://randomuser.me/api/portraits/women/22.jpg",
+    },
   ];
 
   const renderStars = (rating) => {
@@ -52,12 +64,18 @@ const Testimonials = () => {
     ));
   };
 
+  // Motion variants for fade-in + slide-up
+  const cardVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+  };
+
   return (
     <section
       className="w-full py-16 bg-white"
       style={{ fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif' }}
     >
-      <div className="max-w-[1440px] mx-auto h-auto px-4 sm:px-6 lg:px-16">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-16">
         {/* Section Heading */}
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#3A3A3A] leading-snug">
@@ -77,17 +95,29 @@ const Testimonials = () => {
             delay: 4000,
             disableOnInteraction: false,
           }}
+          // pagination={{
+          //   clickable: true,
+          //   renderBullet: (index, className) => {
+          //     return `<span class="${className} bg-[#6A9FCB] w-4 h-4 rounded-full mx-1 inline-block"></span>`;
+          //   },
+          // }}
           breakpoints={{
             320: { slidesPerView: 1 },
             640: { slidesPerView: 1 },
             768: { slidesPerView: 2 },
             1024: { slidesPerView: 3 },
           }}
-          modules={[Autoplay]}
+          modules={[Autoplay, Pagination]}
         >
           {testimonials.map((t) => (
             <SwiperSlide key={t.id}>
-              <div className="p-8 bg-white rounded-3xl shadow-lg border border-gray-200 h-full flex flex-col justify-between transition-transform duration-300 hover:scale-95">
+              <motion.div
+                variants={cardVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                className="p-8 bg-white rounded-3xl border border-gray-200 h-full flex flex-col justify-between transition-transform duration-300 hover:scale-100"
+              >
                 {/* Profile Image & Name */}
                 <div className="flex items-center mb-4">
                   <img
@@ -108,7 +138,7 @@ const Testimonials = () => {
 
                 {/* Feedback Text */}
                 <p className="text-sm sm:text-base text-[#5C6F7A] flex-grow">{t.feedback}</p>
-              </div>
+              </motion.div>
             </SwiperSlide>
           ))}
         </Swiper>

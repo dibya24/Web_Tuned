@@ -1,38 +1,79 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
 import LOGO from "/public/static_images/Logo.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const pathname = usePathname();
+  const [activeSection, setActiveSection] = useState("top");
 
+  const menuItems = [
+    { name: "Home", path: "top" },
+    { name: "About", path: "about" },
+    { name: "Services", path: "services" },
+  ];
+
+  // Handle scroll to show shadow
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const menuItems = [
-    { name: "Home", path: "/" },
-    { name: "About", path: "/about" },
-    { name: "Services", path: "/services" },
-    { name: "Contact", path: "/contact" },
-  ];
+  // IntersectionObserver for active menu
+  useEffect(() => {
+    const sections = menuItems.map((item) =>
+      document.getElementById(item.path)
+    );
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      {
+        root: null,
+        rootMargin: "-50% 0px -50% 0px", // Trigger when section is roughly centered
+        threshold: 0,
+      }
+    );
+
+    sections.forEach((section) => {
+      if (section) observer.observe(section);
+    });
+
+    return () => {
+      sections.forEach((section) => {
+        if (section) observer.unobserve(section);
+      });
+    };
+  }, [menuItems]);
+
+  const handleScrollTo = (id) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      setIsOpen(false); // close mobile menu
+    }
+  };
 
   return (
     <nav
-      className={` w-full z-50 transition-all duration-300 ${
+      className={`w-full z-50 transition-all duration-300 ${
         scrolled ? "bg-white shadow-md" : "bg-transparent"
       }`}
     >
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-16">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center">
+          <div
+            className="flex items-center cursor-pointer"
+            onClick={() => handleScrollTo("top")}
+          >
             <Image
               src={LOGO}
               alt="Logo"
@@ -41,29 +82,31 @@ const Navbar = () => {
               className="object-contain"
               draggable={false}
             />
-          </Link>
+          </div>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-8 items-center">
             {menuItems.map((item) => (
-              <Link
+              <button
                 key={item.name}
-                href={item.path}
+                onClick={() => handleScrollTo(item.path)}
                 className={`relative text-base sm:text-lg transition-colors ${
-                  pathname === item.path
+                  activeSection === item.path
                     ? "text-[#E53A7F] font-semibold"
                     : "text-gray-700 hover:text-[#E53A7F]"
                 }`}
               >
                 {item.name}
-                {pathname === item.path && (
+                {activeSection === item.path && (
                   <span className="absolute left-0 -bottom-1 w-full h-0.5 bg-[#E53A7F]" />
                 )}
-              </Link>
+              </button>
             ))}
 
-            {/* CTA Button */}
-            <button className="ml-4 px-6 py-2 rounded-xl bg-[#E94290] hover:bg-[#C6397F] text-white font-semibold shadow-lg transition duration-300">
+            <button
+              onClick={() => handleScrollTo("contact")}
+              className="ml-4 px-6 py-2 rounded-xl bg-[#E94290] hover:bg-[#C6397F] text-white font-semibold shadow-lg transition duration-300"
+            >
               Book Now
             </button>
           </div>
@@ -115,7 +158,10 @@ const Navbar = () => {
         }`}
       >
         <div className="flex justify-between items-center p-4 border-b">
-          <div className="flex items-center">
+          <div
+            className="flex items-center cursor-pointer"
+            onClick={() => handleScrollTo("top")}
+          >
             <Image
               src={LOGO}
               alt="Logo"
@@ -144,22 +190,23 @@ const Navbar = () => {
 
         <nav className="flex flex-col p-4 space-y-3">
           {menuItems.map((item) => (
-            <Link
+            <button
               key={item.name}
-              href={item.path}
+              onClick={() => handleScrollTo(item.path)}
               className={`px-3 py-2 rounded text-base sm:text-lg transition-colors ${
-                pathname === item.path
+                activeSection === item.path
                   ? "text-[#E53A7F] font-semibold bg-gray-100"
                   : "text-gray-700 hover:bg-gray-100"
               }`}
-              onClick={() => setIsOpen(false)}
             >
               {item.name}
-            </Link>
+            </button>
           ))}
 
-          {/* Mobile CTA */}
-          <button className="mt-4 px-6 py-2 rounded-xl bg-[#E94290] hover:bg-[#C6397F] text-white font-semibold shadow-lg transition duration-300">
+          <button
+            onClick={() => handleScrollTo("contact")}
+            className="mt-4 px-6 py-2 rounded-xl bg-[#E94290] hover:bg-[#C6397F] text-white font-semibold shadow-lg transition duration-300"
+          >
             Book Now
           </button>
         </nav>

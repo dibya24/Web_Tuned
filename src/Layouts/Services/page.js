@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { motion } from "framer-motion";
 
 const Services = () => {
   const services = [
@@ -50,6 +51,20 @@ const Services = () => {
     },
   ];
 
+  const containerVariants = {
+    hidden: {},
+    show: {
+      transition: {
+        staggerChildren: 0.15,
+      },
+    },
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 30 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+  };
+
   return (
     <section
       className="w-full py-16 bg-[#E3F2FD]"
@@ -58,26 +73,28 @@ const Services = () => {
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-16">
         {/* Section Heading */}
         <div className="text-center mb-12">
-          <h2
-            className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#3A3A3A]"
-            style={{ lineHeight: "2.5rem" }}
-          >
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#3A3A3A]">
             Our <span className="text-[#6A9FCB]">Services</span>
           </h2>
-          <p
-            className="text-gray-600 mt-3 mx-auto"
-            style={{ fontSize: "1rem", lineHeight: "1.5rem", maxWidth: "600px" }}
-          >
+          <p className="text-gray-600 mt-3 mx-auto max-w-md sm:max-w-lg text-base sm:text-lg">
             Explore our range of professional cleaning services designed to keep your home and office spotless.
           </p>
         </div>
 
-        {/* Services Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Services Grid with Framer Motion */}
+        <motion.div
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.2 }}
+        >
           {services.map((service) => (
-            <div
+            <motion.div
               key={service.id}
-              className="relative rounded-3xl overflow-hidden shadow-lg group cursor-pointer transform transition hover:scale-105"
+              className="relative rounded-3xl overflow-hidden shadow-lg group cursor-pointer"
+              variants={cardVariants}
+              whileHover={{ scale: 1.05 }}
             >
               {/* Default Image */}
               <img
@@ -96,37 +113,22 @@ const Services = () => {
               {/* Overlay */}
               <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-4 bg-black/40 group-hover:bg-black/60 transition">
                 {/* Always visible title + subtitle */}
-                <div>
-                  <h3
-                    className="text-xl font-bold text-white"
-                    style={{ lineHeight: "1.5rem" }}
-                  >
-                    {service.title}
-                  </h3>
-                  <p
-                    className="text-sm text-white"
-                    style={{ lineHeight: "1.25rem", fontWeight: 400 }}
-                  >
-                    {service.subtitle}
-                  </p>
+                <div className="flex flex-col items-center jus">
+                  <h3 className="text-xl font-bold text-white">{service.title}</h3>
+                  <p className="text-sm text-white">{service.subtitle}</p>
                 </div>
 
                 {/* Hover content */}
                 <div className="opacity-0 group-hover:opacity-100 transition duration-300 mt-4">
-                  <p
-                    className="text-sm text-white mb-2"
-                    style={{ lineHeight: "1.5rem" }}
-                  >
-                    {service.description}
-                  </p>
+                  <p className="text-sm text-white mb-2">{service.description}</p>
                   <button className="bg-[#E94290] hover:bg-[#C6397F] text-white font-bold py-2 px-4 rounded cursor-pointer">
                     Read More
                   </button>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
