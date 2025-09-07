@@ -1,16 +1,19 @@
 "use client";
 import React from "react";
+import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
+import HeroOne from "/public/static_images/Hero_One.jpg"; // Correct static import
+
 const HomeSlider = () => {
   const slides = [
     {
       id: 1,
-      image: "https://picsum.photos/id/1020/1200/500",
+      image: HeroOne, // Use imported image object
       title: "CLEANING SPECIALIST",
       subtitle: "End of lease cleans, Window, frames and track cleaning",
       buttonText: "Shop Now",
@@ -18,7 +21,7 @@ const HomeSlider = () => {
     },
     {
       id: 2,
-      image: "https://picsum.photos/id/1024/1200/500",
+      image: "https://picsum.photos/id/1024/1200/500", // Remote URL is fine
       title: "Affordable & Reliable",
       subtitle: "Making everyday living easier",
       buttonText: "Learn More",
@@ -38,7 +41,6 @@ const HomeSlider = () => {
         pagination={{
           clickable: true,
           renderBullet: (index, className) => {
-            // Custom pagination dot
             return `<span class="${className} w-3 h-3 bg-white opacity-50 rounded-full mx-1 inline-block hover:opacity-100 transition"></span>`;
           },
         }}
@@ -54,11 +56,21 @@ const HomeSlider = () => {
           <SwiperSlide key={slide.id} className="h-full">
             <div className="relative w-full h-full">
               {/* Background Image */}
-              <img
-                src={slide.image}
-                alt={slide.title}
-                className="w-full h-full object-cover"
-              />
+              {typeof slide.image === "string" ? (
+                <img
+                  src={slide.image}
+                  alt={slide.title}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <Image
+                  src={slide.image}
+                  alt={slide.title}
+                  fill
+                  priority
+                  className="object-cover"
+                />
+              )}
 
               {/* Overlay with Text */}
               <div className="absolute inset-0 bg-black/40 flex flex-col justify-center items-center text-center text-white px-4 sm:px-6">

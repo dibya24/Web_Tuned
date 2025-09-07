@@ -1,5 +1,5 @@
 // components/TopBar.js
-import { Facebook, Instagram, Phone, Mail, Clock } from "lucide-react";
+import { Facebook, Instagram, Phone, Mail, Clock, Linkedin, Youtube } from "lucide-react";
 
 export default function TopBar() {
   return (
@@ -9,13 +9,23 @@ export default function TopBar() {
         {/* Social Icons */}
         <div className="flex space-x-4">
           <a href="#" className="hover:text-gray-300 transition-colors duration-200">
-            <div className="w-8 h-8 bg-white rounded-full flex justify-center items-center">
+            <div className="w-8 h-8 bg-white hover:bg-gray-100 rounded-full flex justify-center items-center transition-colors duration-200">
               <Facebook size={18} className="text-[#6A9FCB]" />
             </div>
           </a>
           <a href="#" className="hover:text-gray-300 transition-colors duration-200">
-            <div className="w-8 h-8 bg-white rounded-full flex justify-center items-center">
+            <div className="w-8 h-8 bg-white hover:bg-gray-100 rounded-full flex justify-center items-center transition-colors duration-200">
               <Instagram size={18} className="text-[#6A9FCB]" />
+            </div>
+          </a>
+          <a href="#" className="hover:text-gray-300 transition-colors duration-200">
+            <div className="w-8 h-8 bg-white hover:bg-gray-100 rounded-full flex justify-center items-center transition-colors duration-200">
+              <Linkedin size={18} className="text-[#6A9FCB]" />
+            </div>
+          </a>
+          <a href="#" className="hover:text-gray-300 transition-colors duration-200">
+            <div className="w-8 h-8 bg-white hover:bg-gray-100 rounded-full flex justify-center items-center transition-colors duration-200">
+              <Youtube size={18} className="text-[#6A9FCB]" />
             </div>
           </a>
         </div>
